@@ -201,6 +201,8 @@ in
 
   etBook = callPackage ../data/fonts/et-book { };
 
+  expressvpn = callPackage ../os-specific/linux/expressvpn { };
+
   fetchbower = callPackage ../build-support/fetchbower {
     inherit (nodePackages) bower2nix;
   };
