@@ -24162,6 +24162,8 @@ in
 
   wasmtime = callPackage ../development/interpreters/wasmtime {};
 
+  kube3d =  callPackage ../applications/networking/cluster/kube3d { };
+
   bemenu = callPackage ../applications/misc/bemenu { };
 
 }
