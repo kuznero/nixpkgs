@@ -17660,6 +17660,8 @@ in
 
   icesl = callPackage ../applications/misc/icesl { };
 
+  k3s = callPackage ../applications/networking/cluster/k3s { };
+
   keepassx = callPackage ../applications/misc/keepassx { };
   keepassx2 = callPackage ../applications/misc/keepassx/2.0.nix { };
   keepassxc = libsForQt5.callPackage ../applications/misc/keepassx/community.nix { };
