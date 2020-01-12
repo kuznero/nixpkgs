@@ -1,4 +1,4 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, doxygen, extra-cmake-modules, wrapGAppsHook
+{ mkDerivation, pkgs, lib, fetchFromGitHub, cmake, doxygen, extra-cmake-modules, wrapGAppsHook
 
 # For `digitaglinktree`
 , perl, sqlite
@@ -26,6 +26,8 @@
 , exiv2
 , ffmpeg
 , flex
+, graphviz
+, imagemagick
 , jasper ? null, withJpeg2k ? false  # disable JPEG2000 support, jasper has unfixed CVE
 , lcms2
 , lensfun
@@ -52,13 +54,12 @@
 
 mkDerivation rec {
   pname   = "digikam";
-  version = "6.2.0";
+  version = "6.4.0";
 
-  src = fetchFromGitHub {
-    owner  = "KDE";
-    repo   = "digikam";
-    rev    = "v${version}";
-    sha256 = "1l1nb1nwicmip2jxhn5gzr7h60igvns0zs3kzp36r6qf4wvg3v2z";
+  src = pkgs.fetchgit {
+    url    = https://invent.kde.org/kde/digikam.git;
+    rev    = "d4189399d3b9a70e172e2e4c619548c5dd933280";
+    sha256 = "09axfw28ywsm1x44hlikkp9s7wkyd2m1ix5gj8fzq9pq5sf7ii9f";
   };
 
   nativeBuildInputs = [ cmake doxygen extra-cmake-modules kdoctools wrapGAppsHook ];
@@ -70,6 +71,8 @@ mkDerivation rec {
     exiv2
     ffmpeg
     flex
+    graphviz
+    imagemagick
     lcms2
     lensfun
     libgphoto2
@@ -106,6 +109,9 @@ mkDerivation rec {
   ++ lib.optionals withJpeg2k [ jasper ];
 
   enableParallelBuilding = true;
+
+  # NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${exiv2.dev}/include";
+  # NIX_CFLAGS_COMPILE="-I${exiv2.dev}/include";
 
   cmakeFlags = [
     "-DENABLE_MYSQLSUPPORT=1"
